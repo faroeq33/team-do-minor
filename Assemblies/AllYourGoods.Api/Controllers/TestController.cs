@@ -1,25 +1,23 @@
-﻿using AllYourGoods.Api.Interfaces.Services;
+using AllYourGoods.Api.Interfaces.Services;
 using AllYourGoods.Api.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AllYourGoods.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[ApiExplorerSettings(GroupName = "v1")]
-public class RestaurantController : ControllerBase
+public class TestController : ControllerBase
 {
     private readonly IRestaurantService _restaurantService;
-    public RestaurantController(IRestaurantService restaurantService)
+    public TestController(IRestaurantService restaurantService)
     {
         _restaurantService = restaurantService;
     }
 
     [HttpGet]
+    // [Authorize] // this one is generic
+    [Authorize(Roles = "group1")]
     [ProducesResponseType(typeof(IEnumerable<ViewRestaurantDto>), 200)]
     public async Task<ActionResult<IEnumerable<ViewRestaurantDto>>> GetRestaurants()
     {
